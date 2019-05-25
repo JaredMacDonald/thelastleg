@@ -14,6 +14,8 @@ public class ProgressTracker : MonoBehaviour {
 
     [SerializeField]
     Text progressText;
+    [SerializeField]
+    Slider progressBar;
 
 
 	// Use this for initialization
@@ -32,7 +34,6 @@ public class ProgressTracker : MonoBehaviour {
     {
         int progressValue = (int)((playerPosition.position.x - start.position.x) / ((end.position.x -0.75) - start.position.x) * 100);
         progressText.text = progressValue.ToString();
-
-
+        progressBar.value = progressValue;
     }
 }
