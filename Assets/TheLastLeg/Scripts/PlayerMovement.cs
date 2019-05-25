@@ -31,8 +31,7 @@ public class PlayerMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {      
         //m_PlayerTranform.Translate(Vector3.right * m_MovementSpeed);
-        Debug.Log("Yo!");
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W) && !isJumping)
         {
             Jump();
         }
@@ -43,6 +42,16 @@ public class PlayerMovement : MonoBehaviour {
         else if (Input.GetKeyUp(KeyCode.S))
         {
             Stand();
+        }
+        Debug.Log("Is Jumping = " + isJumping);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Ground")
+        {
+            Debug.Log("You Landed!");
+            isJumping = false;
         }
     }
 
