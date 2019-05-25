@@ -52,7 +52,7 @@ public class Obstacle : MonoBehaviour
             case EObstacleType.Stun:
                 {
                     playerHealth.DoDamage();
-                    playerMovement.SetPlayerMovementSpeed(PlayerMovement.Speed.slow);
+                    playerMovement.SetPlayerMovementSpeed(PlayerMovement.Speed.stunned);
                     break;
                 }
         }
