@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void Start ()
     {
-		m_DuckingCollider.enabled = false;
+		m_SlidingCollider.enabled = false;
         m_StandingCollider.enabled = true;
 	}
    
