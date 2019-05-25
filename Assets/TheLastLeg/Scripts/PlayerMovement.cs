@@ -8,39 +8,51 @@ public class PlayerMovement : MonoBehaviour {
     {
         normal = 0,
         slow,
-        fast
+        fast,
+        stunned
     }
-
-
     public float normalSpeed = 0.1f;
     public float fastSpeed = 0.2f;
     public float slowSpeed = 0.05f;
 
+
+    // ====================== PHYSICS =======================
     [SerializeField]
     Transform m_PlayerTranform;
     [SerializeField]
     Rigidbody2D m_playerRB;
 
     [SerializeField]
-    float m_MovementSpeed = 0.1f;
-    [SerializeField]
-    float m_JumpForce= 250.0f;
-
-    [SerializeField]
     BoxCollider2D m_StandingCollider;
     [SerializeField]
     BoxCollider2D m_DuckingCollider;
+    // ====================== PHYSICS =======================
 
+    // ====================== SPRITES =======================
+    [SerializeField]
+    Sprite m_StandingSprite;
+    [SerializeField]
+    Sprite m_DuckSprite;
+    [SerializeField]
+    Sprite m_JumpingSprite;
+    // ====================== SPRITES =======================
+
+
+    // ====================== DATA MEMBERS =======================
+    [SerializeField]
+    float m_MovementSpeed = 0.1f;
+    [SerializeField]
+    float m_JumpForce= 250.0f;
+    Health m_Health;
     bool isJumping = false;
+    // ====================== DATA MEMBERS =======================
 
 
-    // Use this for initialization
     void Start () {
 		
 	}
    
-	
-	// Update is called once per frame
+
 	void Update () {      
         m_PlayerTranform.Translate(Vector3.right * m_MovementSpeed);
         if (Input.GetKeyDown(KeyCode.W) && !isJumping)
@@ -62,17 +74,18 @@ public class PlayerMovement : MonoBehaviour {
     {
         if(collision.gameObject.tag == "Ground")
         {
-            Debug.Log("You Landed!");
             isJumping = false;
+        }
+        else if(collision.gameObject.tag == "Obstacle")
+        {
+            Debug.Log("You hit an obstacle!");
+            m_Health.DoDamage();
         }
     }
 
     void Jump()
     {
-        // TODO 's: 
-        // set animation state to jumping.  
-        // set isJumping to true
-        // set hasLanded to false
+        GetComponent<SpriteRenderer>().sprite = m_JumpingSprite;
         isJumping = true;
         m_StandingCollider.enabled = true;
         m_DuckingCollider.enabled = false;
@@ -82,6 +95,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void Duck()
     {
+        GetComponent<SpriteRenderer>().sprite = m_DuckSprite;
         // set animation state to sliding.
         Debug.Log("You Ducked!");
         m_StandingCollider.enabled = false;
@@ -90,6 +104,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void Stand()
     {
+        GetComponent<SpriteRenderer>().sprite = m_StandingSprite;
         // set animation state to standing/running.
         Debug.Log("You stopped ducking.");
         m_StandingCollider.enabled = true;
@@ -108,6 +123,9 @@ public class PlayerMovement : MonoBehaviour {
                 break;
             case Speed.slow:
                 m_MovementSpeed = slowSpeed;
+                break;
+            case Speed.stunned:
+                m_MovementSpeed = 0;
                 break;
 
         }
