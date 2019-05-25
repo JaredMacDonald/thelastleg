@@ -19,32 +19,39 @@ public class Obstacle : MonoBehaviour
     [SerializeField]
     private SpriteRenderer spriteRenderer;
 
+    private PlayerMovement playerMovement;
+    private Health playerHealth;
+
+    private void Start()
+    {
+        playerMovement = FindObjectOfType<PlayerMovement>();
+        playerHealth = FindObjectOfType<Health>();
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        PlayerMovement playerMovement = collision.gameObject.GetComponent<PlayerMovement>();
         switch (_ObstacleType)
         {
             case EObstacleType.Health:
                 {
-                    // Add Health to player
-                    // player.AddHealth();
+                    playerHealth.HealDamage();
                     break;
                 }
             case EObstacleType.SlowDown:
                 {
-                    // player.RemoveHealth();
+                    playerHealth.DoDamage();
                     playerMovement.SetPlayerMovementSpeed(PlayerMovement.Speed.slow);
                     break;
                 }
             case EObstacleType.SpeedUp:
                 {
-                    // player.RemoveHealth();
+                    playerHealth.DoDamage();
                     playerMovement.SetPlayerMovementSpeed(PlayerMovement.Speed.fast);
                     break;
                 }
             case EObstacleType.Stun:
                 {
+                    playerHealth.DoDamage();
                     playerMovement.SetPlayerMovementSpeed(PlayerMovement.Speed.slow);
                     break;
                 }
