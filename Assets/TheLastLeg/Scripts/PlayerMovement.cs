@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
+    public enum Speed
+    {
+        normal = 0,
+        slow,
+        fast
+    }
+
+
+    public float normalSpeed = 0.1f;
+    public float fastSpeed = 0.2f;
+    public float slowSpeed = 0.05f;
+
     [SerializeField]
     Transform m_PlayerTranform;
     [SerializeField]
@@ -30,7 +42,7 @@ public class PlayerMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {      
-        //m_PlayerTranform.Translate(Vector3.right * m_MovementSpeed);
+        m_PlayerTranform.Translate(Vector3.right * m_MovementSpeed);
         if (Input.GetKeyDown(KeyCode.W) && !isJumping)
         {
             Jump();
@@ -82,5 +94,23 @@ public class PlayerMovement : MonoBehaviour {
         Debug.Log("You stopped ducking.");
         m_StandingCollider.enabled = true;
         m_DuckingCollider.enabled = false;
+    }
+
+    public void SetPlayerMovementSpeed(Speed speed)
+    {
+        switch (speed)
+        {
+            case Speed.normal:
+                m_MovementSpeed = normalSpeed;
+                break;
+            case Speed.fast:
+                m_MovementSpeed = fastSpeed;
+                break;
+            case Speed.slow:
+                m_MovementSpeed = slowSpeed;
+                break;
+
+        }
+        return;
     }
 }
