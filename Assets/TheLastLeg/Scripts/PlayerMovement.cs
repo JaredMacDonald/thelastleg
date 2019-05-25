@@ -48,8 +48,10 @@ public class PlayerMovement : MonoBehaviour {
     // ====================== DATA MEMBERS =======================
 
 
-    void Start () {
-		
+    void Start ()
+    {
+		m_DuckingCollider.enabled = false;
+        m_StandingCollider.enabled = true;
 	}
    
 

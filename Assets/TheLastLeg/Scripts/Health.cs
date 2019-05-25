@@ -8,10 +8,13 @@ public class Health : MonoBehaviour {
     private int maxHP = 5;
     private int currentHP;
 
+    [SerializeField]
+    private HealthUI HealthUI;
 
     public void DoDamage()
     {
         currentHP--;
+        HealthUI.UpdateHealth(currentHP);
         if(currentHP <= 0)
         {
             Die();
@@ -25,6 +28,7 @@ public class Health : MonoBehaviour {
         {
             currentHP = maxHP;
         }
+        HealthUI.UpdateHealth(currentHP);
     }
 
     void Die()
