@@ -66,7 +66,8 @@ public class Obstacle : MonoBehaviour
                 }
         }
 
-        Destroy(this.gameObject);
+        gameObject.SetActive(false);
+        GameManager.Instance.ObstaclesHit.Add(gameObject);
     }
 
     //Temporary to make the obstacles look different when the type is changed.

@@ -4,28 +4,90 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     [SerializeField]
-    private AudioManager audioManager;
-    
+    private GameObject MainMenuPanel;
+
+    [SerializeField]
+    private GameObject LevelSelectPanel;
+
+    [SerializeField]
+    private GameObject LevelButtonPrefab;
+
+    [SerializeField]
+    private RectTransform LevelSelectButtonsParent;
+
+    static MenuManager _instance;
+    public static MenuManager Instance
+    {
+        get { return _instance; }
+    }
+
+    private void Awake()
+    {
+        if (_instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+        DontDestroyOnLoad(this.gameObject);
+
+    }
+
+
+    private void Start()
+    {
+        MainMenuPanel.SetActive(true);
+        LevelSelectPanel.SetActive(false);
+
+        SetupLevelSelectPanel();
+    }
+
     public void PlayGame()
     {
-        audioManager.PlaySound("Click");
+        AudioManager.Instance.PlaySound("Click");
 
-        SceneManager.LoadScene(0);
-        //SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+        MainMenuPanel.SetActive(false);
+        LevelSelectPanel.SetActive(true);
     }
 
     public void OnButtonHover()
     {
-        audioManager.PlaySound("Hover");
+        AudioManager.Instance.PlaySound("Hover");
     }
 
     public void QuitGame()
     {
-        audioManager.PlaySound("Click");
+        AudioManager.Instance.PlaySound("Click");
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
         Application.Quit();
 #endif
+    }
+
+    public void LoadLevel(int levelIndex)
+    {
+        AudioManager.Instance.PlaySound("Click");
+
+        SceneManager.LoadScene(levelIndex);
+    }
+
+    void SetupLevelSelectPanel()
+    {
+        for (int i = 0; i < GameManager.Instance.Levels.Length; i++)
+        {
+            Level level = GameManager.Instance.Levels[i];
+            GameObject gameObject = Instantiate(LevelButtonPrefab, LevelSelectButtonsParent);
+            gameObject.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = level.Name;
+            gameObject.GetComponentInChildren<LevelButton>().LevelIndex = level.SceneIndex;
+        }
+    }
+
+    public void BackToMainMenu()
+    {
+        MainMenuPanel.SetActive(true);
+        LevelSelectPanel.SetActive(false);
     }
 }
