@@ -13,6 +13,15 @@ public enum EObstacleType
 
 public class Obstacle : MonoBehaviour
 {
+
+    public EObstacleType ObstacleType
+    {
+        get
+        {
+            return _ObstacleType;
+        }
+    }
+
     [SerializeField]
     private EObstacleType _ObstacleType;
 
