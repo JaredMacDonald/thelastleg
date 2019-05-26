@@ -32,17 +32,8 @@ public class ObstaclePlacementTool : EditorWindow
 
     public Placer[] placers;
 
-    public GameObject LeftMouseButtonObject;
-    public EObstacleType ObstacleType;
-    public GameObject RightMouseButtonObject;
-    public GameObject MiddleMouseButtonObject;
-
     private SerializedObject so;
-    private SerializedProperty LeftMouseButtonObjectProp;
-    private SerializedProperty RightMouseButtonObjectProp;
-    private SerializedProperty MiddleMouseButtonObjectProp;
     private SerializedProperty PlacersProp;
-    private SerializedProperty ObstacleTypeProp;
 
     private bool EnablePlacementMode = false;
     private Vector2 scrollPosition;
