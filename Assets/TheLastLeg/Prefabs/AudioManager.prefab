@@ -64,3 +64,15 @@ MonoBehaviour:
     pitch: 3
     looping: 0
     audioSource: {fileID: 0}
+  - name: FireIgnite
+    audioClip: {fileID: 8300000, guid: 8fa283009a77ee94796fd30537c8be81, type: 3}
+    volume: 1
+    pitch: 3
+    looping: 0
+    audioSource: {fileID: 0}
+  - name: ElectricShock
+    audioClip: {fileID: 8300000, guid: 8ffd3f54c0755f543a81d9c6e63276c2, type: 3}
+    volume: 1
+    pitch: 3
+    looping: 0
+    audioSource: {fileID: 0}

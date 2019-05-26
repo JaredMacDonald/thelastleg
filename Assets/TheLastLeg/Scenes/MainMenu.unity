@@ -212,6 +212,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114944322041196816, guid: 1ced63e19b8aaa14e84240f3733f97ff,
+        type: 2}
+      propertyPath: sounds.Array.size
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4516851274287854, guid: 1ced63e19b8aaa14e84240f3733f97ff, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -252,6 +257,86 @@ Prefab:
     - target: {fileID: 114944322041196816, guid: 1ced63e19b8aaa14e84240f3733f97ff,
         type: 2}
       propertyPath: sounds.Array.data[0].pitch
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944322041196816, guid: 1ced63e19b8aaa14e84240f3733f97ff,
+        type: 2}
+      propertyPath: sounds.Array.data[2].name
+      value: Electric
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944322041196816, guid: 1ced63e19b8aaa14e84240f3733f97ff,
+        type: 2}
+      propertyPath: sounds.Array.data[2].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: ad9e4a2134788ef459364f2f90a3e439, type: 3}
+    - target: {fileID: 114944322041196816, guid: 1ced63e19b8aaa14e84240f3733f97ff,
+        type: 2}
+      propertyPath: sounds.Array.data[2].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944322041196816, guid: 1ced63e19b8aaa14e84240f3733f97ff,
+        type: 2}
+      propertyPath: sounds.Array.data[2].pitch
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944322041196816, guid: 1ced63e19b8aaa14e84240f3733f97ff,
+        type: 2}
+      propertyPath: sounds.Array.data[3].name
+      value: ElectricShock
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944322041196816, guid: 1ced63e19b8aaa14e84240f3733f97ff,
+        type: 2}
+      propertyPath: sounds.Array.data[3].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 8ffd3f54c0755f543a81d9c6e63276c2, type: 3}
+    - target: {fileID: 114944322041196816, guid: 1ced63e19b8aaa14e84240f3733f97ff,
+        type: 2}
+      propertyPath: sounds.Array.data[3].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944322041196816, guid: 1ced63e19b8aaa14e84240f3733f97ff,
+        type: 2}
+      propertyPath: sounds.Array.data[3].pitch
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944322041196816, guid: 1ced63e19b8aaa14e84240f3733f97ff,
+        type: 2}
+      propertyPath: sounds.Array.data[4].name
+      value: Fire02
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944322041196816, guid: 1ced63e19b8aaa14e84240f3733f97ff,
+        type: 2}
+      propertyPath: sounds.Array.data[4].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 39f9aa7d31d38b14c848e4063da8fa32, type: 3}
+    - target: {fileID: 114944322041196816, guid: 1ced63e19b8aaa14e84240f3733f97ff,
+        type: 2}
+      propertyPath: sounds.Array.data[4].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944322041196816, guid: 1ced63e19b8aaa14e84240f3733f97ff,
+        type: 2}
+      propertyPath: sounds.Array.data[4].pitch
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944322041196816, guid: 1ced63e19b8aaa14e84240f3733f97ff,
+        type: 2}
+      propertyPath: sounds.Array.data[5].name
+      value: FireIgnite
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944322041196816, guid: 1ced63e19b8aaa14e84240f3733f97ff,
+        type: 2}
+      propertyPath: sounds.Array.data[5].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 8fa283009a77ee94796fd30537c8be81, type: 3}
+    - target: {fileID: 114944322041196816, guid: 1ced63e19b8aaa14e84240f3733f97ff,
+        type: 2}
+      propertyPath: sounds.Array.data[5].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944322041196816, guid: 1ced63e19b8aaa14e84240f3733f97ff,
+        type: 2}
+      propertyPath: sounds.Array.data[5].pitch
       value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []

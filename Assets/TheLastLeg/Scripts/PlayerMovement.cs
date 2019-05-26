@@ -168,18 +168,21 @@ public class PlayerMovement : MonoBehaviour {
                 {
                     IsStunned = true;
                     m_Animator.SetAnimation(PlayerAnimation.Animation.HurtFire);
+                    AudioManager.Instance.PlaySound("FireIgnite");
                     break;
                 }
             case EObstacleType.SlowDown:
                 {
                     IsStunned = true;
                     m_Animator.SetAnimation(PlayerAnimation.Animation.HurtElectric);
+                    AudioManager.Instance.PlaySound("ElectricShock");
                     break;
                 }
             case EObstacleType.Stun:
                 {
                     IsStunned = true;
                     m_Animator.SetAnimation(PlayerAnimation.Animation.HurtNormal);
+                    SetPlayerMovementSpeed(Speed.normal);
                     break;
                 }
         }
