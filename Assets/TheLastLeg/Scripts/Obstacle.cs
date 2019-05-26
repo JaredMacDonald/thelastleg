@@ -87,4 +87,12 @@ public class Obstacle : MonoBehaviour
                 }
         }
     }
+
+#if UNITY_EDITOR
+    public void SetObstacleType(EObstacleType type)
+    {
+        _ObstacleType = type;
+        OnValidate();
+    }
+#endif
 }
