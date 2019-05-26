@@ -10,7 +10,8 @@ public class MenuManager : MonoBehaviour
     {
         audioManager.PlaySound("Click");
 
-        SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+        SceneManager.LoadScene(0);
+        //SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
     }
 
     public void OnButtonHover()

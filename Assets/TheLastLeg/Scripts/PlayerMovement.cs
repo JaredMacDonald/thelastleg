@@ -44,6 +44,7 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField]
     float m_JumpForce= 250.0f;
     bool isJumping = false;
+    bool isSliding = false;
     // ====================== DATA MEMBERS =======================
 
     // ====================== SCRIPTS =======================
@@ -65,9 +66,11 @@ public class PlayerMovement : MonoBehaviour {
         {
             Jump();
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        isSliding = Input.GetKey(KeyCode.S);
+        if (isSliding)
         {
             Slide();
+            
         }
         else if (Input.GetKeyUp(KeyCode.S))
         {
@@ -78,9 +81,10 @@ public class PlayerMovement : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Ground")
+        if(collision.gameObject.tag == "Ground" && !isSliding)
         {
             isJumping = false;
+            GetComponent<SpriteRenderer>().sprite = m_StandingSprite;
         }
         else if(collision.gameObject.tag == "Obstacle")
         {

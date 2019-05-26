@@ -33,7 +33,7 @@ public class ProgressTracker : MonoBehaviour {
     void CalculateProgress()
     {
         int progressValue = (int)((playerPosition.position.x - start.position.x) / ((end.position.x -0.75) - start.position.x) * 100);
-        progressText.text = progressValue.ToString();
+        progressText.text = progressValue.ToString() + "%";
         progressBar.value = progressValue;
     }
 }
