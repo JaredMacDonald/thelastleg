@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour
+{
 
     public enum Speed
     {
@@ -32,7 +33,7 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField]
     float m_MovementSpeed = 0.1f;
     [SerializeField]
-    float m_JumpForce= 250.0f;
+    float m_JumpForce = 250.0f;
     bool isJumping = false;
     bool isSliding = false;
 
@@ -48,20 +49,23 @@ public class PlayerMovement : MonoBehaviour {
 
     [SerializeField]
     PlayerAnimation m_Animator;
+
+    [SerializeField]
+    BoxingGlove boxingGlove;
     // ====================== SCRIPTS =======================
 
 
     private EObstacleType currentObstacleType;
-    void Start ()
+    void Start()
     {
-		m_SlidingCollider.enabled = false;
+        m_SlidingCollider.enabled = false;
         m_StandingCollider.enabled = true;
-	}
-   
+    }
 
-	void Update ()
+
+    void Update()
     {
-        if(IsStunned)
+        if (IsStunned)
         {
             return;
         }
@@ -75,7 +79,7 @@ public class PlayerMovement : MonoBehaviour {
         if (isSliding)
         {
             Slide();
-            
+
         }
         else if (Input.GetKeyUp(KeyCode.S))
         {
@@ -86,16 +90,24 @@ public class PlayerMovement : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Ground" && !isSliding)
+        if (collision.gameObject.tag == "Ground" && !isSliding)
         {
-            isJumping = false;
-            m_Animator.SetAnimation(PlayerAnimation.Animation.Run);
+            if (Camera.main.transform.parent == null)
+            {
+                StartCoroutine(WaitASec());
+
+            }
+            else
+            {                m_Animator.SetAnimation(PlayerAnimation.Animation.Run);
+                isJumping = false;
+
+            }
         }
-        else if(collision.gameObject.tag == "Obstacle")
+        else if (collision.gameObject.tag == "Obstacle")
         {
             // Set animation state based on the type of the obstacle (Collision.GameObject.GetComponent<Obstacle>().type)
             EObstacleType obstacleType = collision.gameObject.GetComponent<Obstacle>().ObstacleType;
-            if(obstacleType != EObstacleType.Health)
+            if (obstacleType != EObstacleType.Health)
             {
                 OnObstacleHit(obstacleType);
             }
@@ -188,5 +200,19 @@ public class PlayerMovement : MonoBehaviour {
 
         m_Animator.SetAnimation(PlayerAnimation.Animation.Run);
         IsStunned = false;
+    }
+
+
+    IEnumerator WaitASec()
+    {
+        FindObjectOfType<ResultScreen>().SetSprite(0);
+        m_Animator.SetAnimation(PlayerAnimation.Animation.Slide);
+        yield return new WaitForSeconds(0.5f);
+        Camera.main.transform.parent = gameObject.transform;
+        Camera.main.transform.position = gameObject.transform.position + new Vector3(0f, 2.5f, -10f);
+        boxingGlove.startLerping = false;        
+        m_Animator.SetAnimation(PlayerAnimation.Animation.Run);
+        SetPlayerMovementSpeed(PlayerMovement.Speed.normal);
+        isJumping = false;
     }
 }
