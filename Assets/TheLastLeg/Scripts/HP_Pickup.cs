@@ -14,7 +14,9 @@ public class HP_Pickup : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         playerHP.HealDamage();
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+
+        GameManager.Instance.ObstaclesHit.Add(gameObject);
     }
 
 }

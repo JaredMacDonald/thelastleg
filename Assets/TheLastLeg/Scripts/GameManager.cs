@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public Level[] Levels;
+    public List<GameObject> ObstaclesHit;
 
     static GameManager _instance;
     public static GameManager Instance

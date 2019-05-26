@@ -26,6 +26,11 @@ public class BoxingGlove : MonoBehaviour
             {
                 // TODO - shoot player off screen with boxing glove.  
                 FindObjectOfType<PlayerMovement>().gameObject.transform.SetPositionAndRotation(startGate.position, Quaternion.identity);
+
+                foreach(GameObject obj in GameManager.Instance.ObstaclesHit)
+                {
+                    obj.SetActive(true);
+                }
             }
         }
     }
