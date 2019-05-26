@@ -15,7 +15,7 @@ public class HealthUI : MonoBehaviour
     public void UpdateHealth(int health)
     {
         int deltaHealth = HealthHearts.Count - health;
-        if(deltaHealth <= HealthHearts.Count)
+        if(deltaHealth < HealthHearts.Count)
         {
             int i = 0;
             for (; i < health; i++)

@@ -101,7 +101,7 @@ public class PlayerMovement : MonoBehaviour {
             }
 
             Debug.Log("You hit an obstacle!");
-            m_Health.DoDamage();
+            //m_Health.DoDamage();
         }
     }
 
