@@ -1,13 +1,36 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEditor;
+
+
+public enum EMouseButton
+{
+    Left,
+    Right,
+    Middle
+}
+
+[System.Serializable]
+public class Placer
+{
+    public GameObject objectToPlace;
+    public EObstacleType ObstacleType;
+    public Transform ParentTranform;
+    public EMouseButton MouseButton;
+    public bool Alt;
+    public bool Ctrl;
+    public bool Shift;
+}
 
 public class ObstaclePlacementTool : EditorWindow
 {
-    [MenuItem("Tools/ObjectPlacementTool")]
+    [MenuItem("Tools/Placer")]
     public static void ShowWindow()
     {
-        GetWindow<ObstaclePlacementTool>();
+        GetWindow<ObstaclePlacementTool>("Placer");
     }
+
+    public Placer[] placers;
 
     public GameObject LeftMouseButtonObject;
     public EObstacleType ObstacleType;
@@ -18,34 +41,27 @@ public class ObstaclePlacementTool : EditorWindow
     private SerializedProperty LeftMouseButtonObjectProp;
     private SerializedProperty RightMouseButtonObjectProp;
     private SerializedProperty MiddleMouseButtonObjectProp;
+    private SerializedProperty PlacersProp;
     private SerializedProperty ObstacleTypeProp;
 
     private bool EnablePlacementMode = false;
+    private Vector2 scrollPosition;
 
     private void OnGUI()
     {
-        GUILayout.Label("Objects to Place:");
-
-        EditorGUILayout.PropertyField(LeftMouseButtonObjectProp, new GUIContent("Left Mouse Button"), true);
-        EditorGUILayout.PropertyField(ObstacleTypeProp, new GUIContent("Obstacle Type"), true);
-
-        EditorGUILayout.PropertyField(RightMouseButtonObjectProp, new GUIContent("Right Mouse Button"), true);
-        EditorGUILayout.PropertyField(MiddleMouseButtonObjectProp, new GUIContent("Middle Mouse Button"), true);
-
-        so.ApplyModifiedProperties();
-
-        GUILayout.Space(10);
         EnablePlacementMode = GUILayout.Toggle(EnablePlacementMode, "Enable Placement Mode?");
+        GUILayout.Label("Objects to Place:");
+        
+        scrollPosition = GUILayout.BeginScrollView(scrollPosition);
+        EditorGUILayout.PropertyField(PlacersProp, true);
+        GUILayout.EndScrollView();
+        so.ApplyModifiedProperties();
     }
 
     private void OnEnable()
     {
         so = new SerializedObject(this);
-        LeftMouseButtonObjectProp = so.FindProperty("LeftMouseButtonObject");
-        RightMouseButtonObjectProp = so.FindProperty("RightMouseButtonObject");
-        MiddleMouseButtonObjectProp = so.FindProperty("MiddleMouseButtonObject");
-
-        ObstacleTypeProp = so.FindProperty("ObstacleType");
+        PlacersProp = so.FindProperty("placers");
 
         SceneView.onSceneGUIDelegate += OnSceneGUI;
     }
@@ -58,28 +74,23 @@ public class ObstaclePlacementTool : EditorWindow
 
             if(currentEvent.type == EventType.MouseDown)
             {
-                Ray r = HandleUtility.GUIPointToWorldRay(currentEvent.mousePosition);
+                Placer placer = Array.Find(placers, p => p.MouseButton == (EMouseButton)currentEvent.button && p.Alt == currentEvent.alt 
+                && p.Ctrl == currentEvent.control && p.Shift == currentEvent.shift);
 
-                Debug.Log(string.Format("Button Pressed: {0}", currentEvent.button));
-                Debug.Log(string.Format("Click count: {0}", currentEvent.clickCount));
-
-                Vector3 placementPosition = r.origin;
-                placementPosition.z = 0.0f;
-
-                if (currentEvent.button == 0 && currentEvent.clickCount == 1)
+                if(placer != null)
                 {
-                    GameObject go = Instantiate(LeftMouseButtonObject, placementPosition, Quaternion.identity);
-                    go.GetComponent<Obstacle>().SetObstacleType(ObstacleType);
+                    Ray ray = HandleUtility.GUIPointToWorldRay(currentEvent.mousePosition);
+                    Vector3 placementPosition = ray.origin;
+                    placementPosition.z = 0.0f;
 
-                    Selection.SetActiveObjectWithContext(go, this);
-                }
-                else if (currentEvent.button == 1 && currentEvent.clickCount == 1)
-                {
-                    Instantiate(RightMouseButtonObject, placementPosition, Quaternion.identity);
-                }
-                else if (currentEvent.button == 2 && currentEvent.clickCount == 1)
-                {
-                    Instantiate(MiddleMouseButtonObject, placementPosition, Quaternion.identity);
+                    GameObject gameObject = Instantiate(placer.objectToPlace, placementPosition, Quaternion.identity, placer.ParentTranform);
+                    Obstacle obstacle = gameObject.GetComponent<Obstacle>();
+                    if(obstacle != null)
+                    {
+                        obstacle.SetObstacleType(placer.ObstacleType);
+                    }
+
+                    currentEvent.Use();
                 }
             }
         }
