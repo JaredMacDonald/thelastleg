@@ -89,12 +89,11 @@ public class PlayerMovement : MonoBehaviour {
         if(collision.gameObject.tag == "Ground" && !isSliding)
         {
             isJumping = false;
-            GetComponent<SpriteRenderer>().sprite = m_StandingSprite;
+            m_Animator.SetAnimation(PlayerAnimation.Animation.Run);
         }
         else if(collision.gameObject.tag == "Obstacle")
         {
             // Set animation state based on the type of the obstacle (Collision.GameObject.GetComponent<Obstacle>().type)
-            //PlayerAnimation.Animation obstacleType = collision.gameObject.GetComponent<Obstacle>().type;
             EObstacleType obstacleType = collision.gameObject.GetComponent<Obstacle>().ObstacleType;
             if(obstacleType != EObstacleType.Health)
             {

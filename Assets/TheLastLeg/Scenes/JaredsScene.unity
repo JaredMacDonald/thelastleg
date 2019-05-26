@@ -196,7 +196,7 @@ Prefab:
         type: 2}
       propertyPath: m_Animator
       value: 
-      objectReference: {fileID: 1972153178}
+      objectReference: {fileID: 0}
     - target: {fileID: 61710147437013660, guid: 685a1dba5524e9c4285e3e2d22f804cd,
         type: 2}
       propertyPath: m_SpriteTilingProperty.oldSize.x
@@ -391,6 +391,16 @@ Prefab:
     - target: {fileID: 1145526401276318, guid: eecea6c87eb12cc45ae7a1661892b818, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224507900238738266, guid: eecea6c87eb12cc45ae7a1661892b818,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 3.4000244
+      objectReference: {fileID: 0}
+    - target: {fileID: 224507900238738266, guid: eecea6c87eb12cc45ae7a1661892b818,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -9.200012
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eecea6c87eb12cc45ae7a1661892b818, type: 2}
@@ -936,37 +946,6 @@ GameObject:
   m_PrefabParentObject: {fileID: 1794155874918880, guid: 685a1dba5524e9c4285e3e2d22f804cd,
     type: 2}
   m_PrefabInternal: {fileID: 41174963}
---- !u!114 &1972153178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1972153177}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c84403f26d6e6dd408480aaf1f2a3a11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentAnimation: 1
-  readyFrames:
-  - {fileID: 21300000, guid: 4cc9089568f218448903e7daac2b8a4a, type: 3}
-  runFrames:
-  - {fileID: 21300000, guid: d0b3dc290338f6b4985d782a3761ccb8, type: 3}
-  - {fileID: 21300000, guid: 12eea5a5e86af21439de37ec000c8389, type: 3}
-  - {fileID: 21300000, guid: 0eb95d07b2fa13d45a341988ef26fcf7, type: 3}
-  - {fileID: 21300000, guid: 9ae39714c34af8f4caf616b644782bfd, type: 3}
-  jumpFrames:
-  - {fileID: 21300000, guid: 4711f101cbdf5bb4f9ca24375b83422e, type: 3}
-  slideFrames:
-  - {fileID: 21300000, guid: 9b21dfbf523d3bd4eb97a9ae3624e6d3, type: 3}
-  hurtNormalFrames:
-  - {fileID: 21300000, guid: 65250f001af14b644b9cf56b0d4bf3dd, type: 3}
-  hurtFireFrames:
-  - {fileID: 21300000, guid: 0d8eb84091c4ba342a90c1c181eea15a, type: 3}
-  - {fileID: 21300000, guid: 807ae64d24be29f4785a8c29a0d8c91d, type: 3}
-  hurtElectricFrames:
-  - {fileID: 21300000, guid: 3d0a206206b80f34ea55fbb09b8dfe9b, type: 3}
-  - {fileID: 21300000, guid: 65250f001af14b644b9cf56b0d4bf3dd, type: 3}
 --- !u!114 &1972153179 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114108416613604920, guid: 685a1dba5524e9c4285e3e2d22f804cd,
