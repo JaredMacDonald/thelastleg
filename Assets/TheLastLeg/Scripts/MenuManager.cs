@@ -79,9 +79,9 @@ public class MenuManager : MonoBehaviour
         for (int i = 0; i < GameManager.Instance.Levels.Length; i++)
         {
             Level level = GameManager.Instance.Levels[i];
-            GameObject o = Instantiate(LevelButtonPrefab, LevelSelectButtonsParent);
-            o.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = level.Name;
-            o.GetComponentInChildren<LevelButton>().LevelIndex = i;
+            GameObject gameObject = Instantiate(LevelButtonPrefab, LevelSelectButtonsParent);
+            gameObject.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = level.Name;
+            gameObject.GetComponentInChildren<LevelButton>().LevelIndex = level.SceneIndex;
         }
     }
 

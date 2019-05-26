@@ -738,6 +738,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114114985692838148, guid: a64cdb23fb310d24caab156d92df1731,
+        type: 2}
+      propertyPath: Levels.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4749423476379462, guid: a64cdb23fb310d24caab156d92df1731, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -769,6 +774,56 @@ Prefab:
     - target: {fileID: 4749423476379462, guid: a64cdb23fb310d24caab156d92df1731, type: 2}
       propertyPath: m_RootOrder
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114114985692838148, guid: a64cdb23fb310d24caab156d92df1731,
+        type: 2}
+      propertyPath: Levels.Array.data[1].Name
+      value: Level 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114114985692838148, guid: a64cdb23fb310d24caab156d92df1731,
+        type: 2}
+      propertyPath: Levels.Array.data[1].TimeLimit
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 114114985692838148, guid: a64cdb23fb310d24caab156d92df1731,
+        type: 2}
+      propertyPath: Levels.Array.data[2].Name
+      value: Level 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114114985692838148, guid: a64cdb23fb310d24caab156d92df1731,
+        type: 2}
+      propertyPath: Levels.Array.data[2].TimeLimit
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 114114985692838148, guid: a64cdb23fb310d24caab156d92df1731,
+        type: 2}
+      propertyPath: Levels.Array.data[3].Name
+      value: Level 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114114985692838148, guid: a64cdb23fb310d24caab156d92df1731,
+        type: 2}
+      propertyPath: Levels.Array.data[3].TimeLimit
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 114114985692838148, guid: a64cdb23fb310d24caab156d92df1731,
+        type: 2}
+      propertyPath: Levels.Array.data[4].Name
+      value: Level 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114114985692838148, guid: a64cdb23fb310d24caab156d92df1731,
+        type: 2}
+      propertyPath: Levels.Array.data[4].TimeLimit
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 114114985692838148, guid: a64cdb23fb310d24caab156d92df1731,
+        type: 2}
+      propertyPath: Levels.Array.data[5].Name
+      value: Level 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114114985692838148, guid: a64cdb23fb310d24caab156d92df1731,
+        type: 2}
+      propertyPath: Levels.Array.data[5].TimeLimit
+      value: 300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a64cdb23fb310d24caab156d92df1731, type: 2}
