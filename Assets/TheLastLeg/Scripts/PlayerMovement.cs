@@ -27,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     BoxCollider2D m_StandingCollider;
     [SerializeField]
     BoxCollider2D m_SlidingCollider;
+    [SerializeField]
+    BoxCollider2D m_JumpingCollider;
     // ====================== PHYSICS =======================
 
     // ====================== DATA MEMBERS =======================
@@ -60,8 +62,9 @@ public class PlayerMovement : MonoBehaviour
     {
         m_SlidingCollider.enabled = false;
         m_StandingCollider.enabled = true;
-    }
-
+        m_JumpingCollider.enabled = false;
+	}
+   
 
     void Update()
     {
@@ -98,10 +101,15 @@ public class PlayerMovement : MonoBehaviour
 
             }
             else
-            {                m_Animator.SetAnimation(PlayerAnimation.Animation.Run);
+            {                
+                m_Animator.SetAnimation(PlayerAnimation.Animation.Run);
                 isJumping = false;
 
             }
+
+            m_StandingCollider.enabled = true;
+            m_SlidingCollider.enabled = false;
+            m_JumpingCollider.enabled = false;
         }
         else if (collision.gameObject.tag == "Obstacle")
         {
@@ -119,12 +127,13 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
+        m_playerRB.AddForce(Vector2.up * m_JumpForce);
         m_Animator.SetAnimation(PlayerAnimation.Animation.Jump);
         isJumping = true;
-        m_StandingCollider.enabled = true;
+        m_StandingCollider.enabled = false;
         m_SlidingCollider.enabled = false;
+        m_JumpingCollider.enabled = true;
         Debug.Log("You Jumped!");
-        m_playerRB.AddForce(Vector2.up * m_JumpForce);
     }
 
     void Slide()
@@ -134,6 +143,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("You slid!");
         m_StandingCollider.enabled = false;
         m_SlidingCollider.enabled = true;
+        m_JumpingCollider.enabled = false;
     }
 
     void Stand()
@@ -143,6 +153,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("You stopped ducking.");
         m_StandingCollider.enabled = true;
         m_SlidingCollider.enabled = false;
+        m_JumpingCollider.enabled = false;
     }
 
     public void SetPlayerMovementSpeed(Speed speed)
