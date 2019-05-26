@@ -17,7 +17,12 @@ public class HealthUI : MonoBehaviour
         int deltaHealth = HealthHearts.Count - health;
         if(deltaHealth <= HealthHearts.Count)
         {
-            for (int i = HealthHearts.Count - 1; i > (HealthHearts.Count - 1) - deltaHealth; i--)
+            int i = 0;
+            for (; i < health; i++)
+            {
+                HealthHearts[i].SetActive(true);
+            }
+            for(; i < HealthHearts.Count; i++)
             {
                 HealthHearts[i].SetActive(false);
             }
