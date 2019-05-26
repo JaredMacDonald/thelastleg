@@ -28,16 +28,6 @@ public class PlayerMovement : MonoBehaviour {
     BoxCollider2D m_SlidingCollider;
     // ====================== PHYSICS =======================
 
-    // ====================== SPRITES =======================
-    [SerializeField]
-    Sprite m_StandingSprite;
-    [SerializeField]
-    Sprite m_SlidingSprite;
-    [SerializeField]
-    Sprite m_JumpingSprite;
-    // ====================== SPRITES =======================
-
-
     // ====================== DATA MEMBERS =======================
     [SerializeField]
     float m_MovementSpeed = 0.1f;
@@ -45,14 +35,23 @@ public class PlayerMovement : MonoBehaviour {
     float m_JumpForce= 250.0f;
     bool isJumping = false;
     bool isSliding = false;
+
+    [SerializeField]
+    private float StunCooldown = 2.0f;
+
+    private bool IsStunned = false;
     // ====================== DATA MEMBERS =======================
 
     // ====================== SCRIPTS =======================
+    [SerializeField]
     Health m_Health;
+
+    [SerializeField]
     PlayerAnimation m_Animator;
     // ====================== SCRIPTS =======================
 
 
+    private EObstacleType currentObstacleType;
     void Start ()
     {
 		m_SlidingCollider.enabled = false;
@@ -60,7 +59,13 @@ public class PlayerMovement : MonoBehaviour {
 	}
    
 
-	void Update () {      
+	void Update ()
+    {
+        if(IsStunned)
+        {
+            return;
+        }
+
         m_PlayerTranform.Translate(Vector3.right * m_MovementSpeed);
         if (Input.GetKeyDown(KeyCode.W) && !isJumping)
         {
@@ -84,27 +89,17 @@ public class PlayerMovement : MonoBehaviour {
         if(collision.gameObject.tag == "Ground" && !isSliding)
         {
             isJumping = false;
-            GetComponent<SpriteRenderer>().sprite = m_StandingSprite;
+            m_Animator.SetAnimation(PlayerAnimation.Animation.Run);
         }
         else if(collision.gameObject.tag == "Obstacle")
         {
             // Set animation state based on the type of the obstacle (Collision.GameObject.GetComponent<Obstacle>().type)
-            //PlayerAnimation.Animation obstacleType = collision.gameObject.GetComponent<Obstacle>().type;
-            //switch (obstacleType)
+            EObstacleType obstacleType = collision.gameObject.GetComponent<Obstacle>().ObstacleType;
+            if(obstacleType != EObstacleType.Health)
             {
-                ////Electric
-                //case Obstacle.ObstacleType.Fire:
-                //    m_Animator.SetAnimation(PlayerAnimation.Animation.HurtFire);
-                //    break;
-                //case Obstacle.ObstacleType.Electric:
-                //    m_Animator.SetAnimation(PlayerAnimation.Animation.HurtElectric);
-                //    break;
-                //case Obstacle.ObstacleType.Normal:
-                //    m_Animator.SetAnimation(PlayerAnimation.Animation.HurtNormal);
-                //    break;
-                    //Fire
-                    //Normal
+                OnObstacleHit(obstacleType);
             }
+
             Debug.Log("You hit an obstacle!");
             m_Health.DoDamage();
         }
@@ -112,8 +107,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void Jump()
     {
-        //m_Animator.SetAnimation(PlayerAnimation.Animation.Jump);
-        GetComponent<SpriteRenderer>().sprite = m_JumpingSprite;
+        m_Animator.SetAnimation(PlayerAnimation.Animation.Jump);
         isJumping = true;
         m_StandingCollider.enabled = true;
         m_SlidingCollider.enabled = false;
@@ -123,9 +117,8 @@ public class PlayerMovement : MonoBehaviour {
 
     void Slide()
     {
-        //m_Animator.SetAnimation(PlayerAnimation.Animation.Slide);
         // set animation state to sliding.
-        GetComponent<SpriteRenderer>().sprite = m_SlidingSprite;
+        m_Animator.SetAnimation(PlayerAnimation.Animation.Slide);
         Debug.Log("You slid!");
         m_StandingCollider.enabled = false;
         m_SlidingCollider.enabled = true;
@@ -133,9 +126,8 @@ public class PlayerMovement : MonoBehaviour {
 
     void Stand()
     {
-        //m_Animator.SetAnimation(PlayerAnimation.Animation.Run);
-        GetComponent<SpriteRenderer>().sprite = m_StandingSprite;
         // set animation state to standing/running.
+        m_Animator.SetAnimation(PlayerAnimation.Animation.Run);
         Debug.Log("You stopped ducking.");
         m_StandingCollider.enabled = true;
         m_SlidingCollider.enabled = false;
@@ -160,5 +152,41 @@ public class PlayerMovement : MonoBehaviour {
 
         }
         return;
+    }
+
+    void OnObstacleHit(EObstacleType obstacleType)
+    {
+        StartCoroutine(UpdateAnimation(obstacleType));
+    }
+
+    IEnumerator UpdateAnimation(EObstacleType obstacleType)
+    {
+        switch (obstacleType)
+        {
+            //Electric
+            case EObstacleType.SpeedUp:
+                {
+                    IsStunned = true;
+                    m_Animator.SetAnimation(PlayerAnimation.Animation.HurtFire);
+                    break;
+                }
+            case EObstacleType.SlowDown:
+                {
+                    IsStunned = true;
+                    m_Animator.SetAnimation(PlayerAnimation.Animation.HurtElectric);
+                    break;
+                }
+            case EObstacleType.Stun:
+                {
+                    IsStunned = true;
+                    m_Animator.SetAnimation(PlayerAnimation.Animation.HurtNormal);
+                    break;
+                }
+        }
+
+        yield return new WaitForSeconds(StunCooldown);
+
+        m_Animator.SetAnimation(PlayerAnimation.Animation.Run);
+        IsStunned = false;
     }
 }
