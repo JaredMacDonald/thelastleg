@@ -36,7 +36,6 @@ public class BoxingGlove : MonoBehaviour
             if (healthScanner.scanResult == false)
             {
                 // TODO - shoot player off screen with boxing glove.  
-<<<<<<< HEAD
                 PlayerMovement movement = FindObjectOfType<PlayerMovement>();
                movement.SetPlayerMovementSpeed(PlayerMovement.Speed.stunned);
                movement.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 5000);
@@ -45,14 +44,11 @@ public class BoxingGlove : MonoBehaviour
                 Camera.main.transform.parent = null;
                 startLerping = true;
                 //FindObjectOfType<PlayerMovement>().gameObject.transform.SetPositionAndRotation(startGate.position, Quaternion.identity);
-=======
-                FindObjectOfType<PlayerMovement>().gameObject.transform.SetPositionAndRotation(startGate.position, Quaternion.identity);
 
                 foreach(GameObject obj in GameManager.Instance.ObstaclesHit)
                 {
                     obj.SetActive(true);
                 }
->>>>>>> 65fdc3dde7b3730101617988756a428fd238046f
             }
         }
     }
