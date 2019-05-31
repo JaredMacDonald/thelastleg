@@ -23,7 +23,7 @@ public class BoxingGlove : MonoBehaviour
 
     private void Update()
     {
-        if(startLerping)
+        if (startLerping)
         {
             LerpCamera(Time.deltaTime);
         }
@@ -34,26 +34,24 @@ public class BoxingGlove : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             if (healthScanner.scanResult == false)
-            {
+            {                
                 // TODO - shoot player off screen with boxing glove.  
                 PlayerMovement movement = FindObjectOfType<PlayerMovement>();
-               movement.SetPlayerMovementSpeed(PlayerMovement.Speed.stunned);
-               movement.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 5000);
+                movement.SetPlayerMovementSpeed(PlayerMovement.Speed.stunned);
+                movement.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 5000);
                 FindObjectOfType<PlayerAnimation>().SetAnimation(PlayerAnimation.Animation.HurtNormal);
                 StartCoroutine(WaitAndTeleport());
                 Camera.main.transform.parent = null;
                 startLerping = true;
                 //FindObjectOfType<PlayerMovement>().gameObject.transform.SetPositionAndRotation(startGate.position, Quaternion.identity);
 
-                foreach(GameObject obj in GameManager.Instance.ObstaclesHit)
+                foreach (GameObject obj in GameManager.Instance.ObstaclesHit)
                 {
                     obj.SetActive(true);
                 }
             }
         }
     }
-
-
 
     void LerpCamera(float delta)
     {
